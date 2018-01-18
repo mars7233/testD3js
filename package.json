@@ -1,0 +1,20 @@
+{
+  "name": "testd3js",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -a 127.0.0.1 -p 8088"
+  },
+  "author": "mars",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^4.12.2",
+    "jquery": "^3.2.1",
+    "requirejs": "^2.3.5"
+  },
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
+}
