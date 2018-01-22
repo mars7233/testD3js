@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "allowSyntheticDefaultImports": true
+    },
+    "typeAcquisition": {
+        "include": [
+            "d3",
+            "d3-force",
+            "d3-collection",
+            "d3-dispatch",
+            "d3-quadtree",
+            "d3-time",
+            "d3-selection"
+        ]
+    }
+
+}
