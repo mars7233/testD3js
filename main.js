@@ -27,52 +27,40 @@ var dataset_3 = {
     links: [{
         source: "1",
         target: "2"
-    },
-    {
+    }, {
         source: "1",
         target: "3"
-    },
-    {
+    }, {
         source: "10",
         target: "4"
-    },
-    {
+    }, {
         source: "1",
         target: "5"
-    },
-    {
+    }, {
         source: "2",
         target: "6"
-    },
-    {
+    }, {
         source: "3",
         target: "6"
-    },
-    {
+    }, {
         source: "2",
         target: "5"
-    },
-    {
+    }, {
         source: "3",
         target: "4"
-    },
-    {
+    }, {
         source: "5",
         target: "8"
-    },
-    {
+    }, {
         source: "5",
         target: "9"
-    },
-    {
+    }, {
         source: "6",
         target: "7"
-    },
-    {
+    }, {
         source: "7",
         target: "8"
-    },
-    {
+    }, {
         source: "8",
         target: "9"
     }]
@@ -95,110 +83,63 @@ var padding = 20;
 
 require(["d3"], function (d3) {
     function drawSimple() {
-        var i = 1;
-        //     // 柱状图
-        //     var svg_1 = d3
-        //         .select("body")
-        //         .append("svg")
-        //         .attr("width", w)
-        //         .attr("height", h);
+        // 柱状图
+        var svg_1 = d3.select("body").append("svg").attr("width", w).attr("height", h_2);
 
-        //     svg_1
-        //         .selectAll("rect")
-        //         .data(dataset_1)
-        //         .enter()
-        //         .append("rect")
-        //         .attr("x", function (d, i) {
-        //             return i * (w / dataset_1.length);
-        //         })
-        //         .attr("y", function (d, i) {
-        //             return h - d;
-        //         })
-        //         .attr("width", w / dataset_1.length - barPadding)
-        //         .attr("height", function (d) {
-        //             return d;
-        //         })
-        //         .attr("fill", function (d) {
-        //             return "rgb(0," + d + ",0)";
-        //         });
+        svg_1.selectAll("rect")
+            .data(dataset_1)
+            .enter()
+            .append("rect")
+            .attr("x", function (d, i) { return i * (w / dataset_1.length); })
+            .attr("y", function (d, i) { return h_2 - d; })
+            .attr("width", w / dataset_1.length - barPadding)
+            .attr("height", function (d) { return d; })
+            .attr("fill", function (d) { return "rgb(0," + d + ",0)"; });
 
-        //     svg_1
-        //         .selectAll("text")
-        //         .data(dataset_1)
-        //         .enter()
-        //         .append("text")
-        //         .text(function (d) {
-        //             return d;
-        //         })
-        //         .attr("x", function (d, i) {
-        //             return i * (w / dataset_1.length) + w / dataset_1.length / 2 - 2;
-        //         })
-        //         .attr("y", function (d, i) {
-        //             return h - d + 13;
-        //         })
-        //         .attr("font-family", "sans-serif")
-        //         .attr("font-size", "13px")
-        //         .attr("fill", "white")
-        //         .attr("text-anchor", "middle");
+        svg_1.selectAll("text")
+            .data(dataset_1)
+            .enter()
+            .append("text")
+            .text(function (d) { return d; })
+            .attr("x", function (d, i) { return i * (w / dataset_1.length) + w / dataset_1.length / 2 - 2; })
+            .attr("y", function (d, i) { return h_2 - d + 13; })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "13px")
+            .attr("fill", "white")
+            .attr("text-anchor", "middle");
 
-        //     var dataset_2_x_max = d3.max(dataset_2, function (d) {
-        //         return d[0];
-        //     });
-        //     var dataset_2_y_max = d3.max(dataset_2, function (d) {
-        //         return d[1];
-        //     });
-        //     // 比例尺
-        //     var xScale = d3
-        //         .scaleLinear()
-        //         .domain([0, dataset_2_x_max])
-        //         .range([padding, w - padding]);
-        //     var yScale = d3
-        //         .scaleLinear()
-        //         .domain([0, dataset_2_y_max])
-        //         .range([padding, h_2 - padding]);
+        var dataset_2_x_max = d3.max(dataset_2, function (d) { return d[0]; });
+        var dataset_2_y_max = d3.max(dataset_2, function (d) { return d[1]; });
+        // 比例尺
+        var xScale = d3.scaleLinear().domain([0, dataset_2_x_max]).range([padding, w - padding]);
+        var yScale = d3.scaleLinear().domain([0, dataset_2_y_max]).range([padding, h_2 - padding]);
 
-        //     // 散点图
-        //     var svg_2 = d3.select("body").append("svg").attr("width", w).attr("height", h_2);
-        //     svg_2
-        //         .selectAll("circle")
-        //         .data(dataset_2)
-        //         .enter()
-        //         .append("circle")
-        //         .attr("cx", function (d) {
-        //             return xScale(d[0]);
-        //         })
-        //         .attr("cy", function (d) {
-        //             return yScale(d[1]);
-        //         })
-        //         .attr("r", function (d) {
-        //             return Math.random() * 10 + 1;
-        //         })
-        //         .attr("fill", "teal");
+        // 散点图
+        var svg_2 = d3.select("body").append("svg").attr("width", w).attr("height", h_2);
+        svg_2.selectAll("circle")
+            .data(dataset_2)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { return xScale(d[0]); })
+            .attr("cy", function (d) { return yScale(d[1]); })
+            .attr("r", function (d) { return Math.random() * 10 + 1; })
+            .attr("fill", "teal");
 
-        //     svg_2
-        //         .selectAll("text")
-        //         .data(dataset_2)
-        //         .enter()
-        //         .append("text")
-        //         .text(function (d) {
-        //             return "(" + d[0] + "," + d[1] + ")";
-        //         })
-        //         .attr("x", function (d) {
-        //             return xScale(d[0]);
-        //         })
-        //         .attr("y", function (d) {
-        //             return yScale(d[1]);
-        //         })
-        //         .attr("font-family", "sans-serif")
-        //         .attr("font-size", "13px")
-        //         .attr("text-anchor", "start");
+        svg_2.selectAll("text")
+            .data(dataset_2)
+            .enter()
+            .append("text")
+            .text(function (d) { return "(" + d[0] + "," + d[1] + ")"; })
+            .attr("x", function (d) { return xScale(d[0]); })
+            .attr("y", function (d) { return yScale(d[1]); })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "13px")
+            .attr("text-anchor", "start");
 
-        //     var xAxis = d3.axisBottom(xScale);
-        //     svg_2
-        //         .append("g")
-        //         .attr("transform", "translate(0," + (h - padding) + ")")
-        //         .call(xAxis);
+        var xAxis = d3.axisBottom(xScale);
+        svg_2.append("g").attr("transform", "translate(0," + (h / 2 - padding) + ")").call(xAxis);
     }
+    drawSimple();
 
     // 力导向布局
     // var color = d3.schemeCategory20;
@@ -211,7 +152,7 @@ require(["d3"], function (d3) {
         .force("center", d3.forceCenter(w / 2, h / 2))
         .force("collide", d3.forceCollide(50));
 
-    // simulation.alpha(1.5).alphaMin(0.001).alphaDecay(0.0228).alphaTarget(0);
+    simulation.alpha(1.5).alphaMin(0.001).alphaDecay(0.0228).alphaTarget(0);
 
     // 画线
     var lines = svg_3.selectAll("line")
@@ -241,7 +182,6 @@ require(["d3"], function (d3) {
     function draw() {
         circles.attr("cx", function (d) { return d.x; })
             .attr("cy", function (d) { return d.y; });
-
         lines.attr("x1", function (d) { return d.source.x; })
             .attr("y1", function (d) { return d.source.y; })
             .attr("x2", function (d) { return d.target.x; })

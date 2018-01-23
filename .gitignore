@@ -1,2 +1,7 @@
 .gitignore
 node_modules/
+CollisionDetection.html
+CollisionDetectionCanvas.html
+food.csv
+miserables.json
+.vscode/
