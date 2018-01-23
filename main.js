@@ -7,42 +7,22 @@ require.config({
         "d3-quadtree": "d3-quadtree/build/d3-quadtree",
         "d3-timer": "d3-timer/build/d3-timer",
         "d3-force": "d3-force/build/d3-force",
-        jquery: "jquery/dist/jquery"
+        "jquery": "jquery/dist/jquery"
     }
 });
 var dataset_1 = [];
 var dataset_2 = [];
 var dataset_3 = {
-    nodes: [{
-        name: "1"
-    },
-    {
-        name: "2"
-    },
-    {
-        name: "3"
-    },
-    {
-        name: "4"
-    },
-    {
-        name: "5"
-    },
-    {
-        name: "6"
-    },
-    {
-        name: "7"
-    },
-    {
-        name: "8"
-    },
-    {
-        name: "9"
-    },
-    {
-        name: "10"
-    }
+    nodes: [{ name: "1" },
+    { name: "2" },
+    { name: "3" },
+    { name: "4" },
+    { name: "5" },
+    { name: "6" },
+    { name: "7" },
+    { name: "8" },
+    { name: "9" },
+    { name: "10" }
     ],
     links: [{
         source: "1",
@@ -95,8 +75,7 @@ var dataset_3 = {
     {
         source: "8",
         target: "9"
-    }
-    ]
+    }]
 };
 for (var i = 0; i < 40; i++) {
     var newNumber = Math.floor(Math.random() * 300);
@@ -109,12 +88,12 @@ for (var i = 0; i < 100; i++) {
     dataset_2.push(newCoordinate);
 }
 var w = 1200;
-var h = 300;
+var h = 600;
 var h_2 = 300;
 var barPadding = 5;
 var padding = 20;
 
-require(["d3", "d3-force", "d3-timer", "jquery"], function (d3) {
+require(["d3"], function (d3) {
     function drawSimple() {
         var i = 1;
         //     // 柱状图
@@ -226,20 +205,13 @@ require(["d3", "d3-force", "d3-timer", "jquery"], function (d3) {
     var svg_3 = d3.select("body").append("svg").attr("width", w).attr("height", h).attr("class", "force");
 
     var simulation = d3.forceSimulation(dataset_3.nodes)
-        .force("link", d3.forceLink(dataset_3.links).id(function (d) { return d.name; }).distance(60))
+        .velocityDecay(0.5)
+        .force("link", d3.forceLink(dataset_3.links).id(function (d) { return d.name; }).distance(100))
         .force("charge", d3.forceManyBody().strength(-100))
-        .force("center", d3.forceCenter(w / 2, h / 2));
+        .force("center", d3.forceCenter(w / 2, h / 2))
+        .force("collide", d3.forceCollide(50));
 
-
-    console.log(dataset_3)
-    for (var i = 0; i < 10; i++) {
-        console.log(dataset_3.nodes[i].x);
-    }
     // simulation.alpha(1.5).alphaMin(0.001).alphaDecay(0.0228).alphaTarget(0);
-
-    // // 比例尺
-    // var xScale = d3.scaleLinear().domain([-30, 30]).range([0, 500]);
-    // var yScale = d3.scaleLinear().domain([-30, 30]).range([0, 300]);
 
     // 画线
     var lines = svg_3.selectAll("line")
@@ -260,13 +232,22 @@ require(["d3", "d3-force", "d3-timer", "jquery"], function (d3) {
         .attr("r", 20)
         .attr("cx", function (d) { return d.x; })
         .attr("cy", function (d) { return d.y; })
-        .style("fill", "teal");
+        .style("fill", "teal")
+        .call(d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended)
+        );
+    function draw() {
+        circles.attr("cx", function (d) { return d.x; })
+            .attr("cy", function (d) { return d.y; });
 
-    // .call(d3.drag()
-    //     .on("start", dragstarted)
-    //     .on("drag", dragged)
-    //     .on("end", dragended)
-    // );
+        lines.attr("x1", function (d) { return d.source.x; })
+            .attr("y1", function (d) { return d.source.y; })
+            .attr("x2", function (d) { return d.target.x; })
+            .attr("y2", function (d) { return d.target.y; });
+    }
+    simulation.on("tick", draw);
 
     function dragstarted(d) {
         if (!d3.event.active) simulation.alphaTarget(0.06).restart();
