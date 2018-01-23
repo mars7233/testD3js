@@ -179,14 +179,13 @@ require(["d3"], function (d3) {
             .on("drag", dragged)
             .on("end", dragended)
         );
+
     function draw() {
-        circles.attr("cx", function (d) { return d.x; })
-            .attr("cy", function (d) { return d.y; });
-        lines.attr("x1", function (d) { return d.source.x; })
-            .attr("y1", function (d) { return d.source.y; })
-            .attr("x2", function (d) { return d.target.x; })
-            .attr("y2", function (d) { return d.target.y; });
+        circles.attr("cx", function (d) { return d.x; }).attr("cy", function (d) { return d.y; });
+        lines.attr("x1", function (d) { return d.source.x; }).attr("y1", function (d) { return d.source.y; })
+            .attr("x2", function (d) { return d.target.x; }).attr("y2", function (d) { return d.target.y; });
     }
+
     simulation.on("tick", draw);
 
     function dragstarted(d) {
@@ -201,7 +200,7 @@ require(["d3"], function (d3) {
     }
 
     function dragended(d) {
-        if (!d3.event.active) simulation.alphaTarget(0.06);
+        if (!d3.event.active) { simulation.alphaTarget(0.06); }
         d.fx = null;
         d.fy = null;
     }
